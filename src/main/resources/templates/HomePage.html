@@ -5,32 +5,32 @@
     <title>Title</title>
 </head>
 <body>
-    <h1>
-        Welcome to Spring Shop. Let shopping!
-    </h1>
-    <div>
-        <form th:action="@{/search}" method="get">
-            <input type="text"  autofocus/>
-            <button type="submit">
-                Search
-            </button>
-        </form>
-        <div>
-            <div th:each="product: ${products}" class="person">
-                <div th:text="${product.getProductName()}" class="name"></div>
-                <div>
-                    <a th:href="'mailto:' +${product.getPrice()}" th:text="${product.getPrice()}"></a>
-                </div>
-                <div>
-                    <img th:src="${product.getAva()}"/>
-                </div>
-                <div>
-                    <div th:text="${product.getQuantity()}">
+<h1 class="txtGiua">Welcome to Spring Shop. Let shopping!</h1>
+<div class="divGiua">
+    <form th:action="@{/search}" method="get">
+        <input type="text" name="keyword" th:value="${keyword}" autofocus>
+        <button type="submit">Search</button>
 
-                    </div>
-                </div>
-            </div>
-        </div>
+    </form>
+    <div th:if="${hasItemsInCart}">
+        <a href="/checkout">Check Out</a>
     </div>
+</div>
+<hr>
+<!--    <img th:src="@{/img/1-image.jpg}">-->
+<div class="divGiua">
+    <div th:each="product : ${products}" style="margin: 20px;">
+        <p th:text="${product.getProductName()}" class="txtGiua"></p>
+        <p th:text="${product.getPrice()}" class="txtGiua"></p>
+        <div>
+            <img th:src="${product.getAva()}">
+        </div>
+        <form th:action="@{/addToCart}" method="get">
+            <input type="hidden" name="productId" th:value="${product.id}" />
+            <input type="number" name="quantity" value="1" min="1" />
+            <button type="submit">Thêm vào giỏ hàng</button>
+        </form>
+    </div>
+</div>
 </body>
 </html>

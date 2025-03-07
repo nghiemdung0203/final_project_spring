@@ -1,6 +1,7 @@
 package com.samsung.bt_spring_boot.service;
 
 import com.samsung.bt_spring_boot.model.ViewModel.Cart;
+import com.samsung.bt_spring_boot.model.entities.Products;
 import com.samsung.bt_spring_boot.model.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,20 +21,17 @@ public class CartService {
         return cart;
     }
 
-    // Thêm sản phẩm vào giỏ hàng
     public void addToCart(WebRequest request, Long productId, int quantity) {
         Cart cart = getCart(request);
-        product product = productRepository.findById(productId).orElseThrow(() -> new RuntimeException("Product not found"));
+        Products product = productRepository.findById(String.valueOf(productId)).orElseThrow(() -> new RuntimeException("Product not found"));
         cart.addItem(product, quantity);
     }
 
-    // Xóa sản phẩm khỏi giỏ hàng
     public void removeFromCart(WebRequest request, Long productId) {
         Cart cart = getCart(request);
         cart.removeFromCart(productId);
     }
 
-    // Tính tổng giỏ hàng
     public double getTotal(WebRequest request) {
         Cart cart = getCart(request);
         return cart.getTotal();
