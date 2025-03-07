@@ -17,12 +17,12 @@ public class OrderItem {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "product_id", nullable = false) // Chỉ rõ khóa ngoại
+    @JoinColumn(name = "product_id", nullable = false)
     private Products product;
 
     @ManyToOne
-    @JoinColumn(name = "order_id", nullable = false) // Chỉ rõ khóa ngoại
-    private Order order; // OrderItem cần tham chiếu tới Order
+    @JoinColumn(name = "order_id", nullable = false)
+    private Order order;
 
     private int quantity;
 }

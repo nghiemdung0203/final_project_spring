@@ -16,7 +16,8 @@ import java.util.UUID;
 @Table(name = "products")
 public class Products {
     @Id
-    private String id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
     @Column(name="Product name", nullable = false)
     private String productName;
 
@@ -28,11 +29,4 @@ public class Products {
 
     @Column(name = "Avatar")
     private String ava;
-
-    @PrePersist  // Sinh ID trước khi insert
-    public void generateId() {
-        if (this.id == null) {
-            this.id = UUID.randomUUID().toString();
-        }
-    }
 }
